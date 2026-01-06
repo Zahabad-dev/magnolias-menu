@@ -773,7 +773,7 @@ const getSubcategoryImage = (groupTitle: string): string => {
 		'Sopas y Pastas': '/images/portadascat/8Sopas.png',
 		'Ensaladas': '/images/portadascat/9Ensaladas.png',
 		'Del mar': '/images/portadascat/10Delmar.png',
-		'Pollo': '/images/portadascat/11Pollo.png',
+		'Pollo': '/images/portadascat/11pollo.png',
 		'Cortes': '/images/portadascat/12Cortes.png',
 		'Tacos': '/images/portadascat/13Tacos.png',
 		'Especialidades del Chef': '/images/portadascat/14Especialidades.png',
@@ -785,9 +785,9 @@ const getSubcategoryImage = (groupTitle: string): string => {
 
 		// Bebidas Refrescantes
 		'Limonadas y Bebidas Cítricas': '/images/portadascat/18limonadasybebidas.png',
-		'Mocktails (Cocteles Sin Alcohol)': '/images/portadascat/19Mocktails.png',
+		'Mocktails (Cocteles Sin Alcohol)': '/images/portadascat/19mocktails.png',
 		'Bebidas Tradicionales Mexicanas': '/images/portadascat/20bebidastradicionales.png',
-		'Jugos Naturales': '/images/portadascat/21Jugos.png',
+		'Jugos Naturales': '/images/portadascat/21jugos.png',
 		'Bebidas Lácteas y Cremosas': '/images/portadascat/22bebidaslacteascremosas.png',
 		'AGUAS FRESCAS': '/images/portadascat/23Aguas.png',
 		'REFRESCOS Y SODAS': '/images/portadascat/24Refrescos.png',
