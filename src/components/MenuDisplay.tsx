@@ -781,7 +781,7 @@ const getSubcategoryImage = (groupTitle: string): string => {
 
 		// Menu Kids
 		'Menú de Desayunos Infantil': '/images/portadascat/17menuinfantildesayunos.png',
-		'Menú de Comidas Infantil': '/images/portadascat/17KidsComida.png',
+		// 'Menú de Comidas Infantil': '/images/portadascat/17KidsComida.png',
 
 		// Bebidas Refrescantes
 		'Limonadas y Bebidas Cítricas': '/images/portadascat/18limonadasybebidas.png',
