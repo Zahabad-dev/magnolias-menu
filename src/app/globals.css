@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+:root {
+  /* Siempre usar valores del tema oscuro */
+  --background: #0a1422;
+  --foreground: #f1f3f5;
+}
+
+/* Variables CSS disponibles para todo el sitio */
+
+/* Ya no necesitamos media query para dark mode - siempre oscuro */
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Animaciones cross-browser (solo usan opacity, transform y translate) */
+@keyframes modal-fade-scale-in {
+  0% {
+    opacity: 0;
+    transform: translateY(14px) scale(.96);
+  }
+
+  60% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes overlay-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-animate-in {
+  animation: modal-fade-scale-in 280ms cubic-bezier(.4, .18, .2, 1);
+}
+
+.overlay-animate-in {
+  animation: overlay-fade-in 220ms ease-out;
+}
+
+/* Prefiere reducir movimiento */
+@media (prefers-reduced-motion: reduce) {
+
+  .modal-animate-in,
+  .overlay-animate-in {
+    animation: none;
+  }
+}
+
+/* Pulso muy sutil y lento para botón Mis alimentos (enfatiza sin distraer) */
+@keyframes glow-pulse-long {
+  0% {
+    box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.0), 0 0 0 0 rgba(212, 175, 55, 0.0);
+  }
+
+  18% {
+    box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.0), 0 0 0 0 rgba(212, 175, 55, 0.0);
+  }
+
+  32% {
+    box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.25), 0 0 14px 4px rgba(212, 175, 55, 0.18);
+  }
+
+  42% {
+    box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.28), 0 0 18px 6px rgba(212, 175, 55, 0.22);
+  }
+
+  55% {
+    box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.20), 0 0 10px 3px rgba(212, 175, 55, 0.12);
+  }
+
+  70% {
+    box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.15), 0 0 4px 1px rgba(212, 175, 55, 0.08);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(212, 175, 55, 0), 0 0 0 0 rgba(212, 175, 55, 0);
+  }
+}
+
+.animate-glow-pulse-long {
+  animation: glow-pulse-long 6400ms ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-glow-pulse-long {
+    animation: none;
+  }
+}

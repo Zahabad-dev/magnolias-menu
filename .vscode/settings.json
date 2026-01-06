@@ -1,0 +1,17 @@
+{
+  // Auto Save: afterDelay | onFocusChange | onWindowChange | off
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 800,
+  // Formato al guardar (puedes ajustar si instalas Prettier u otro)
+  "editor.formatOnSave": true,
+  // Mostrar minimapa opcional
+  "editor.minimap.enabled": false,
+  // Resaltar cambios sin guardar
+  "workbench.editor.highlightModifiedTabs": true,
+  // Ajustes de TypeScript/JS
+  "typescript.tsserver.log": "off",
+  // Preferir importaciones absolutas con paths tsconfig
+  "typescript.preferences.importModuleSpecifier": "shortest",
+  // Tema opcional (cambia si deseas otro)
+  "workbench.colorTheme": "Default Dark Modern"
+}
