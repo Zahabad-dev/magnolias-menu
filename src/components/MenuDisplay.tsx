@@ -55,8 +55,8 @@ export const MenuDisplay: React.FC<MenuDisplayProps> = ({ slug }) => {
 			console.log('✅ Abriendo acompananteModal (Paquetes)');
 			setAcompananteModal({ item, slug });
 		} else if (categoria?.slug === 'menu-kids' && groupTitle === 'Menú de Desayunos Infantil') {
-			console.log('🎯 Abriendo paqueteModal (Desayunos Infantil)');
-			setPaqueteModal({ item, slug });
+			console.log('🎯 Abriendo acompananteModal (Desayunos Infantil)');
+			setAcompananteModal({ item, slug });
 		} else if (categoria?.slug === 'menu-kids' && groupTitle === 'Menú de Comidas Infantil') {
 			console.log('🎯 Abriendo paqueteModal (Comidas Infantil)');
 			setPaqueteModal({ item, slug });
@@ -567,7 +567,7 @@ export const MenuDisplay: React.FC<MenuDisplayProps> = ({ slug }) => {
 
 									<div className="space-y-3">
 										{(categoria?.slug === 'menu-kids'
-											? ['Chocomilk Frío', 'Chocomilk Tibio', 'Limonada Natural', 'Limonada Mineral']
+											? ['Limonada Natural', 'Limonada Mineral', 'Chocomilk']
 											: ['Fruta', 'Jugo de Naranja', 'Limonada', 'Sin Acompañante']
 										).map((acompanante, index) => (
 											<label key={acompanante} className="group flex items-center gap-4 cursor-pointer p-3 rounded-xl hover:bg-neutral-800/50 transition-all duration-200 border border-transparent hover:border-neutral-600/30">

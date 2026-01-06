@@ -19,7 +19,6 @@ const categoria: CategoriaMenu = {
         },
         {
             titulo: 'Menú de Comidas Infantil',
-            leyendas: ['INCLUYE BEBIDA: LIMONADA NATURAL/MINERAL O CHOCOMILK FRÍO/TIBIO'],
             items: [
                 { id: 'KP006', nombre: 'Hamburguesa Infantil', descripcion: 'Hamburguesa con carne de res, queso manchego, tocino, mayonesa, cátsup y mostaza. Acompañada de papas', precio: 90 },
                 { id: 'KP007', nombre: 'Pechuga Empanizada con Papas', descripcion: 'Pechuga de pollo empanizada con papas', precio: 90 },
