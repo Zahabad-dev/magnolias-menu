@@ -762,7 +762,7 @@ const getSubcategoryImage = (groupTitle: string): string => {
 	const imageMap: Record<string, string> = {
 		// Desayunos
 		'Paquetes': '/images/portadascat/1Paquetes.png',
-		'De la Granja': '/images/portadascat/2De la granja.png',
+		'De la Granja': '/images/portadascat/2DelaGranja.png',
 		'Toast': '/images/portadascat/3Toast.png',
 		'Omelettes': '/images/portadascat/4Omelettes.png',
 		'Enchiladas, chilaquiles y más': '/images/portadascat/5Enchiladas.png',
