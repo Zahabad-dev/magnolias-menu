@@ -774,10 +774,10 @@ const getSubcategoryImage = (groupTitle: string): string => {
 		'Ensaladas': '/images/portadascat/9Ensaladas.png',
 		'Del mar': '/images/portadascat/10Delmar.png',
 		'Pollo': '/images/portadascat/11pollo.png',
-		'Cortes': '/images/portadascat/12Cortes.png',
-		'Tacos': '/images/portadascat/13Tacos.png',
-		'Especialidades del Chef': '/images/portadascat/14Especialidades.png',
-		'Snacks': '/images/portadascat/15Snacks.png',
+		'Cortes': '/images/portadascat/12cortes.png',
+		'Tacos': '/images/portadascat/13tacos.png',
+		'Especialidades del Chef': '/images/portadascat/14especialidades.png',
+		'Snacks': '/images/portadascat/15snacks.png',
 
 		// Menu Kids
 		'Menú de Desayunos Infantil': '/images/portadascat/17menuinfantildesayunos.png',
