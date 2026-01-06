@@ -51,8 +51,8 @@ export default function Home() {
     for (const it of items) {
       if (!seenIdsRef.current.has(it.id)) {
         seenIdsRef.current.add(it.id);
-        // Si es un platillo no-bebida (y no acompañante ni paquete) y no está descartado, preparar sugerencia
-        if (!DRINK_SLUGS.current.has(it.slug) && !it.id.startsWith('acompanante-') && !isPaqueteItem(it)) {
+        // Si es un platillo no-bebida (y no acompañante ni paquete ni menu-kids) y no está descartado, preparar sugerencia
+        if (!DRINK_SLUGS.current.has(it.slug) && !it.id.startsWith('acompanante-') && !isPaqueteItem(it) && it.slug !== 'menu-kids') {
           if (!dismissedDishIdsRef.current.has(it.id)) {
             setForcedDishSuggestion({ id: it.id, slug: it.slug, name: it.item.nombre });
           }
