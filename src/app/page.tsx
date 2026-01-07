@@ -36,7 +36,7 @@ export default function Home() {
   const beverageItems = items.filter(i => DRINK_SLUGS.current.has(i.slug));
   // Identificar ítems de paquetes por su ID (DB001-DB010)
   const isPaqueteItem = (item: { id: string }) => /^DB0(0[1-9]|10)$/.test(item.id);
-  const nonBeverageFoods = items.filter(i => !DRINK_SLUGS.current.has(i.slug) && !i.id.startsWith('acompanante-') && !isPaqueteItem(i));
+  const nonBeverageFoods = items.filter(i => !DRINK_SLUGS.current.has(i.slug) && !i.id.startsWith('acompanante-') && !isPaqueteItem(i) && i.slug !== 'menu-kids');
   const baseFood = nonBeverageFoods[0];
 
   // Condición bebida simple (sólo si no hay obligación pendiente de acompañantes)
