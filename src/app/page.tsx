@@ -36,7 +36,9 @@ export default function Home() {
   const beverageItems = items.filter(i => DRINK_SLUGS.current.has(i.slug));
   // Identificar ítems de paquetes por su ID (DB001-DB010)
   const isPaqueteItem = (item: { id: string }) => /^DB0(0[1-9]|10)$/.test(item.id);
-  const nonBeverageFoods = items.filter(i => !DRINK_SLUGS.current.has(i.slug) && !i.id.startsWith('acompanante-') && !isPaqueteItem(i) && i.slug !== 'menu-kids');
+  // Identificar ítems del menú kids por su ID (KP001-KP999 o con sufijo de bebida)
+  const isMenuKidsItem = (item: { id: string }) => item.id.startsWith('KP');
+  const nonBeverageFoods = items.filter(i => !DRINK_SLUGS.current.has(i.slug) && !i.id.startsWith('acompanante-') && !isPaqueteItem(i) && !isMenuKidsItem(i));
   const baseFood = nonBeverageFoods[0];
 
   // Condición bebida simple (sólo si no hay obligación pendiente de acompañantes)
@@ -52,7 +54,7 @@ export default function Home() {
       if (!seenIdsRef.current.has(it.id)) {
         seenIdsRef.current.add(it.id);
         // Si es un platillo no-bebida (y no acompañante ni paquete ni menu-kids) y no está descartado, preparar sugerencia
-        if (!DRINK_SLUGS.current.has(it.slug) && !it.id.startsWith('acompanante-') && !isPaqueteItem(it) && it.slug !== 'menu-kids') {
+        if (!DRINK_SLUGS.current.has(it.slug) && !it.id.startsWith('acompanante-') && !isPaqueteItem(it) && !isMenuKidsItem(it)) {
           if (!dismissedDishIdsRef.current.has(it.id)) {
             setForcedDishSuggestion({ id: it.id, slug: it.slug, name: it.item.nombre });
           }
