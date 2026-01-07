@@ -982,8 +982,8 @@ const ItemCard: React.FC<{ item: MenuItem; slug?: string; onExpand: (item: MenuI
 				{!selected && (
 					<button
 						onClick={() => {
-							// Si es un ítem de paquetes, abrir modal de acompañantes
-							if (groupTitle === 'Paquetes') {
+							// Si es un ítem de paquetes o menú de desayunos infantil, abrir modal de acompañantes
+							if (groupTitle === 'Paquetes' || groupTitle === 'Menú de Desayunos Infantil') {
 								onExpand(item, groupTitle);
 							} else {
 								add(item, slug || 'categoria');
