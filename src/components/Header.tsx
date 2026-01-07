@@ -18,6 +18,8 @@ export const Header: React.FC = () => {
   const { total, items, inc, dec, remove, clear } = useSelection();
   const [open, setOpen] = useState(false);
   const [summaryOpen, setSummaryOpen] = useState(false);
+  const [showFirstItemHint, setShowFirstItemHint] = useState(false);
+  const hasShownHintRef = useRef(false);
   // Leyenda dinámica
   const [activeCategory, setActiveCategory] = useState<string>('');
   const [showCategoryLegend, setShowCategoryLegend] = useState(false);
@@ -28,6 +30,19 @@ export const Header: React.FC = () => {
 
   // Cerrar modal si ya no hay items
   useEffect(() => { if (summaryOpen && total === 0) setSummaryOpen(false); }, [summaryOpen, total]);
+
+  // Mostrar indicador animado cuando se agrega el primer item
+  useEffect(() => {
+    if (total >= 1 && !hasShownHintRef.current && !open) {
+      setShowFirstItemHint(true);
+      hasShownHintRef.current = true;
+      // No ocultar automáticamente - solo cuando abra el panel
+    }
+    // Ocultar si el usuario abre el panel
+    if (open) {
+      setShowFirstItemHint(false);
+    }
+  }, [total, open]);
 
   // Bloqueo de scroll / focus management
   useEffect(() => {
@@ -143,6 +158,7 @@ export const Header: React.FC = () => {
                   <span>Mis alimentos</span>
                   <span className={`h-5 min-w-5 px-1 rounded-full flex items-center justify-center font-extrabold shadow-[0_0_0_1px_rgba(0,0,0,0.25),0_2px_5px_-1px_rgba(0,0,0,0.45)] transition-colors
                   ${total > 0 ? 'bg-[#d4af37] text-[#2c2308]' : 'bg-[#ffd84d] text-[#3a2a00]'}
+                  ${showFirstItemHint ? 'animate-[scale-pulse_1s_ease-in-out_infinite]' : ''}
                 `}>
                     {total}
                   </span>
@@ -205,9 +221,12 @@ export const Header: React.FC = () => {
                       <button
                         disabled={total === 0}
                         onClick={() => { if (total > 0) { setOpen(false); setSummaryOpen(true); } }}
-                        className="w-full rounded-md bg-gradient-to-b from-[#0f2f3f] via-[#16475d] to-[#103544] hover:from-[#185066] hover:to-[#154154] disabled:opacity-40 disabled:cursor-not-allowed text-magnolias text-[12px] font-semibold tracking-wide px-4 py-2 shadow-[0_0_0_1px_rgba(255,255,255,0.08),0_4px_12px_-3px_rgba(0,0,0,0.5)] transition-colors"
+                        className="w-full rounded-lg bg-gradient-to-b from-[#e7c968] via-[#d4af37] to-[#b68a17] hover:brightness-110 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:brightness-100 text-[#2a2105] text-[13px] font-bold tracking-wide px-5 py-3 shadow-[0_0_0_1px_rgba(0,0,0,0.45),0_4px_12px_-2px_rgba(0,0,0,0.55),0_0_0_6px_rgba(212,175,55,0.2)] hover:shadow-[0_0_0_1px_rgba(0,0,0,0.5),0_6px_16px_-2px_rgba(0,0,0,0.65),0_0_0_8px_rgba(212,175,55,0.3)] transition-all duration-300 active:scale-[0.98] flex items-center justify-center gap-2 animate-pulse-subtle"
                       >
-                        Listo para mi mesero
+                        <svg className="w-4 h-4 animate-bounce-gentle" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                        </svg>
+                        <span>Listo para mi mesero</span>
                       </button>
                     </div>
                   </div>
@@ -258,16 +277,31 @@ export const Header: React.FC = () => {
                   )}
                   {total > 0 && (
                     <ul className="space-y-4">
-                      {items.map(r => (
-                        <li key={r.id} className="flex items-center gap-5 rounded-xl bg-neutral-800/70 border border-neutral-700/60 px-5 py-4">
-                          <div className="flex-1 min-w-0">
-                            <p className="text-xl font-semibold text-neutral-100 truncate leading-tight">{r.item.nombre}</p>
-                          </div>
-                          {r.qty > 1 && (
-                            <span className="text-lg font-bold text-[#f5d676] bg-[#f5d676]/10 border border-[#f5d676]/30 rounded-full px-4 py-1 tracking-wide">x{r.qty}</span>
-                          )}
-                        </li>
-                      ))}
+                      {items.map(r => {
+                        // Extraer acompañante del nombre si existe (formato: "Platillo (Acompañante)")
+                        const match = r.item.nombre.match(/^(.+?)\s*\((.+)\)$/);
+                        const platilloBase = match ? match[1] : r.item.nombre;
+                        const acompanante = match ? match[2] : null;
+
+                        return (
+                          <li key={r.id} className="flex items-center gap-5 rounded-xl bg-neutral-800/70 border border-neutral-700/60 px-5 py-4">
+                            <div className="flex-1 min-w-0">
+                              <p className="text-xl font-semibold text-neutral-100 leading-tight">{platilloBase}</p>
+                              {acompanante && (
+                                <p className="text-sm text-magnolias/90 mt-1 flex items-center gap-1.5">
+                                  <svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                  </svg>
+                                  <span>{acompanante}</span>
+                                </p>
+                              )}
+                            </div>
+                            {r.qty > 1 && (
+                              <span className="text-lg font-bold text-[#f5d676] bg-[#f5d676]/10 border border-[#f5d676]/30 rounded-full px-4 py-1 tracking-wide">x{r.qty}</span>
+                            )}
+                          </li>
+                        );
+                      })}
                     </ul>
                   )}
                 </div>
