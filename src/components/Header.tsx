@@ -119,7 +119,7 @@ export const Header: React.FC = () => {
             <div className="relative h-20 w-20 translate-x-16 md:translate-x-20 select-none transition-transform">
               <div className="absolute inset-0 origin-center scale-[2.9] md:scale-[3.2]">
                 <Image
-                  src="/images/logo_mag.png?v=2"
+                  src="/images/logo_mag.png"
                   alt="Logo"
                   fill
                   sizes="(max-width:768px) 260px, 330px"
