@@ -11,11 +11,11 @@ interface Props {
 // Parámetros visuales
 const MAX_SCALE = 1.15;
 const MIN_SCALE = 0.32;
-const DEPTH_RADIUS = 440; // ligero aumento para mayor separación horizontal aparente
+const DEPTH_RADIUS = 380; // reducido para mejor centrado con círculos de 140px
 const POWER_SCALE = 1.15;
 const POWER_OPACITY = 1.6;
 // Elevación base extra para separar los ítems de la línea inferior
-const BASE_LIFT = -14; // valores negativos suben el contenido
+const BASE_LIFT = -45; // valores negativos suben el contenido (aumentado de -14 a -45)
 
 // Interacción lineal
 const DRAG_THRESHOLD = 65; // píxeles para avanzar UNA categoría
@@ -168,9 +168,7 @@ const CategoryCarousel: React.FC<Props> = ({ selectedSlug, onSelect }) => {
         cat,
         isActive: idx === activeIndex,
         liStyle: {
-          transform: isCurrentActive
-            ? `rotateY(${-angle}deg) translateZ(${DEPTH_RADIUS}px)` // Compensa la rotación global para mantener posición fija
-            : `rotateY(${idx * stepDeg}deg) translateZ(${DEPTH_RADIUS}px)`,
+          transform: `rotateY(${idx * stepDeg}deg) translateZ(${DEPTH_RADIUS}px)`,
           zIndex: Math.round(depth * 100),
           opacity,
           filter: blur ? `blur(${blur}px)` : undefined,
@@ -220,7 +218,7 @@ const CategoryCarousel: React.FC<Props> = ({ selectedSlug, onSelect }) => {
   }, [isDragging]);
 
   return (
-    <div className="relative mt-1 -mx-4 px-4 pt-4 pb-10 select-none" aria-label="Categorías del menú" data-carousel-root>
+    <div className="relative mt-1 -mx-4 px-4 pt-4 pb-10 select-none overflow-hidden" aria-label="Categorías del menú" data-carousel-root>
       {/* Gradientes laterales (oscuro consistente, sin blancos) */}
       <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-neutral-950 via-neutral-950/70 to-transparent" />
       <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-neutral-950 via-neutral-950/70 to-transparent" />
@@ -283,17 +281,18 @@ const CategoryCarousel: React.FC<Props> = ({ selectedSlug, onSelect }) => {
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         onPointerLeave={onPointerLeave}
-        className="relative mx-auto h-56 w-full max-w-md [perspective:2000px] select-none"
+        className="relative h-56 w-full [perspective:2000px] select-none"
+        style={{ perspectiveOrigin: 'center center' }}
       >
         <div
-          className="relative mx-auto h-56 w-full max-w-md [perspective:2000px]"
+          className="relative h-56 w-full"
         >
           <div
             ref={wheelRef}
-            className={`absolute inset-0 [transform-style:preserve-3d] ${!isDragging ? 'transition-transform duration-500 ease-out' : ''}`}
+            className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-10 w-[200px] h-[200px] [transform-style:preserve-3d] ${!isDragging ? 'transition-transform duration-500 ease-out' : ''}`}
             style={{
-              transform: `translateY(-18px) translateZ(-${DEPTH_RADIUS}px) rotateY(${angle}deg)`,
-              transformOrigin: typeof window !== 'undefined' && window.innerWidth <= 768 ? 'calc(50vw - 60px) center' : 'center center'
+              transform: `translateZ(-${DEPTH_RADIUS}px) rotateY(${angle}deg) scale(0.92)`,
+              transformOrigin: 'center center'
             }}
           >
             <ul className="absolute inset-0 m-0 p-0 list-none [transform-style:preserve-3d]">
@@ -303,7 +302,7 @@ const CategoryCarousel: React.FC<Props> = ({ selectedSlug, onSelect }) => {
                   id={cat.id}
                   role="option"
                   aria-selected={isActive}
-                  className="absolute top-1/2 left-1/2 origin-center [transform-style:preserve-3d]"
+                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 [transform-style:preserve-3d]"
                   style={liStyle}
                 >
                   <button
@@ -318,7 +317,7 @@ const CategoryCarousel: React.FC<Props> = ({ selectedSlug, onSelect }) => {
                     tabIndex={isActive ? 0 : -1}
                   >
                     <div
-                      className={`relative h-24 w-24 rounded-full flex items-center justify-center overflow-hidden will-change-transform transition-all duration-500 ease-[cubic-bezier(.34,1.56,.4,1)] ${isActive ? 'shadow-[0_8px_24px_-6px_rgba(0,0,0,0.55)]' : 'shadow-[0_3px_8px_-4px_rgba(0,0,0,0.45)]'}`}
+                      className={`relative h-[140px] w-[140px] rounded-full flex items-center justify-center overflow-hidden will-change-transform transition-all duration-500 ease-[cubic-bezier(.34,1.56,.4,1)] ${isActive ? 'shadow-[0_8px_24px_-6px_rgba(0,0,0,0.55)]' : 'shadow-[0_3px_8px_-4px_rgba(0,0,0,0.45)]'}`}
                       style={{ ...innerStyle, WebkitBackfaceVisibility: 'hidden', backfaceVisibility: 'hidden' }}
                     >
                       <div className={`absolute inset-0 rounded-full border transition-colors ${isActive ? 'border-[#d4af37] ring-4 ring-[#d4af37]/30 shadow-[0_0_0_2px_#e5d3ab_inset,0_12px_28px_-10px_rgba(0,0,0,0.6),0_0_0_8px_rgba(212,175,55,0.12)]' : 'border-neutral-600/50'} `} />
@@ -334,7 +333,7 @@ const CategoryCarousel: React.FC<Props> = ({ selectedSlug, onSelect }) => {
                       />
                     </div>
                     <span
-                      className={`text-[24px] text-center leading-tight w-32 mt-1 line-clamp-2 transition-colors select-none ${isActive ? 'text-magnolias drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]' : 'text-neutral-300/90 hover:text-neutral-200 focus-visible:text-neutral-100'}`}
+                      className={`text-[26px] text-center leading-tight w-40 -mt-4 line-clamp-2 transition-colors select-none ${isActive ? 'text-magnolias drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]' : 'text-neutral-300/90 hover:text-neutral-200 focus-visible:text-neutral-100'}`}
                       style={{
                         fontFamily: '"Qwigley", cursive',
                         fontWeight: '400',
